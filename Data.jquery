@@ -1,0 +1,11 @@
+$.ajax({
+    url: "https://data.melbourne.vic.gov.au/resource/b2ak-trbp.json",
+    type: "GET",
+    data: {
+      "$limit" : 5000,
+      "$$app_token" : "4aryxl0makqmquo0f1xcchkso"
+    }
+}).done(function(data) {
+  alert("Retrieved " + data.length + " records from the dataset!");
+  console.log(data);
+});

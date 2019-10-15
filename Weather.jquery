@@ -1,0 +1,59 @@
+
+	var currentDate;
+	var currentHours;
+	var currentHourCount;
+	var todayDate = new Date().toISOString().slice(0,10);
+	currentDate=todayDate.replace('2019','2018');
+	currentHours=new Date().getHours();
+	console.log(currentHours);
+	function currnetHours(currentHours){
+		if(currentHours>=0 && currentHours<3)
+		{
+			return 0;
+		} else if(currentHours>=3 && currentHours<6)
+		{
+			return 1;
+		} else if(currentHours>=6 && currentHours<9)
+		{
+			return 2;
+		} else if(currentHours>=9 && currentHours<12)
+		{
+			return 3;
+		} else if(currentHours>=12 && currentHours<15)
+		{
+			return 4;
+		} else if(currentHours>=15 && currentHours<18)
+		{
+			return 5;
+		} else if(currentHours>=18 && currentHours<21)
+		{
+			return 6;
+		} else 
+		{
+		return 7;
+		}
+	}
+	
+	currentHourCount=currnetHours(currentHours);
+    var key="c3770c75e90e4c81b2d84600191210";
+	var url = "https://api.worldweatheronline.com/premium/v1/past-weather.ashx?key=";
+	var condition= "&q=Melbourne&format=json&+date="+currentDate;
+	var Api_url=url+key+condition;
+	
+	console.log(Api_url);
+	fetch(Api_url)
+	.then(function (response) {
+    return response.json();
+  })
+  .then(function (data) {
+    appendData(data);
+  })
+  .catch(function (err) {
+    console.log(err);
+  });
+
+function appendData(data){
+console.log(data.data.weather[0].hourly[currentHourCount].tempC);
+}
+
+

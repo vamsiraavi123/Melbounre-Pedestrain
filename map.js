@@ -14,14 +14,14 @@ var map = L.map('map',{ center: [-37.808,144.959], zoom: 14 });
 		var violationPoints = null;
 
 		// Get GeoJSON and put on it on the map when it loads
-		$.getJSON("https://cdn.jsdelivr.net/gh/vamsiraavi123/Melbounre-Pedestrain@master/Pedestrain_Count.geojson",function(data){
+		$.getJSON("https://cdn.jsdelivr.net/gh/vamsiraavi123/Melbounre-Pedestrain@master/Pedestrain_Count%20(2).geojson",function(data){
 			// set coffeeShops to GeoJSON, add GeoJSON layer to the map once the file is loaded
 			violationPoints = L.geoJson(data,{
 				onEachFeature: function (feature, layer) {
-					layer.bindPopup(feature.properties.name+ '</br>' +feature.properties.status) ;
+					layer.bindPopup(feature.properties.name+ '</br>' +feature.properties.status+ '</br>'+ feature.properties.sensor_id) ;
 				}, pointToLayer: function (feature, latlng) {
 					if (feature.properties.status == "Light"){
-					var marker = L.marker(latlng,{icon: LightIcon});
+					var marker = L.marker(latlng,	{icon: LightIcon});
 					} else if (feature.properties.status == "Moderate"){
 					var marker = L.marker(latlng,{icon: MediumIcon});
 					} else {

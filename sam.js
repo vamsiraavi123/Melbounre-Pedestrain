@@ -39,7 +39,7 @@ function roundToHour(date) {
 }
 var event = new Date();
 var hours= event.getHours().toString();
-console.log(hours);
+//console.log(hours);
 var sam=roundToHour(event);
 var hoursOne= sam.getHours().toString();
 var hoursTwo=sam.getHours();
@@ -62,7 +62,7 @@ if(hoursTwo!==0)
 }
 dtwo="'"+sam.substring(0,8)+day+"T"+hoursTwo+sam.substring(13)+"'";
 dayThree.push(sam.substring(0,8)+day+" at "+hoursTwo+":00");
-console.log(dayThree);
+//console.log(dayThree);
 dtwo=dtwo.replace("2019","2018");
 dtwo=dtwo.replace("Z","");
 dayTwo.push(dtwo);
@@ -114,13 +114,13 @@ DayT=dayTwo.toString();
     url: Api_url,
     type: "GET"
 }).done(function(data) {
-	console.log(data.data);
-console.log(data.data.weather[0].hourly[currentHourCount].tempC);
+	//console.log(data.data);
+//console.log(data.data.weather[0].hourly[currentHourCount].tempC);
 temperatureC=data.data.weather[0].hourly[currentHourCount].tempC;
 weatherDescription=data.data.weather[0].hourly[currentHourCount].weatherDesc[0].value;
 //tempData=data.data.weather[0].hourly.tempC;
-//console.log(tempData);
-console.log(weatherDescription);
+////console.log(tempData);
+//console.log(weatherDescription);
 $.ajax({
     url: "https://data.melbourne.vic.gov.au/resource/b2ak-trbp.json?date_time="+dayOne,
     type: "GET",
@@ -129,7 +129,7 @@ $.ajax({
       "$$app_token" : "xy4krTqRfkljGARkVeKyGE836"
     }
 }).done(function(data) {
-  console.log(data);
+  //console.log(data);
   pedestrainData=data;
   $.ajax({
     url: "https://data.melbourne.vic.gov.au/resource/b2ak-trbp.json?$where=date_time in("+DayT+")",
@@ -139,7 +139,7 @@ $.ajax({
       "$$app_token" : "xy4krTqRfkljGARkVeKyGE836"
     }
 }).done(function(data) {
-  console.log(data);
+  //console.log(data);
   pedestrainPastData=data;
   
 		L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoiMTAxOTE1MzQxIiwiYSI6ImNqenJ0M3kyejE0amczZHAzb2szOXhxZWgifQ.pQeHGTDZC34I5iYu6ybzNg', {
@@ -160,20 +160,20 @@ $.ajax({
 						if(pedestrainData[i].sensor_id==feature.properties.sensor_id){
 							pedstrainId=i;
 							hourlyCounts=pedestrainData[pedstrainId].hourly_counts;
-							console.log(hourlyCounts);
+							//console.log(hourlyCounts);
 							feature.properties.status=null;
 							if(hourlyCounts>0 && hourlyCounts<=500){
 							densityStatus="Light";
-							console.log(densityStatus);
+							//console.log(densityStatus);
 							}else if(hourlyCounts>500 && hourlyCounts<=1500){
 							densityStatus="Moderate";
-							console.log(densityStatus);
+							//console.log(densityStatus);
 							}else if(hourlyCounts>1500){
 							densityStatus="Heavy";
-							console.log(densityStatus);
+							//console.log(densityStatus);
 							}else{
 								densityStatus="Undefined";
-								console.log(densityStatus);
+								//console.log(densityStatus);
 							}
 							feature.properties.status=densityStatus;
 							}
@@ -185,7 +185,7 @@ $.ajax({
 							pastHourlyCounts.push(pedestrainPastData[i].hourly_counts.toString());
 							}
 						}
-						console.log(pastHourlyCounts);
+						//console.log(pastHourlyCounts);
 						
 						popup=layer.getPopup();		
 						var popupContentOne='<div><table class="vitamins"><thead><tr><th>Pedstrain Count Information for:</th><th>'+feature.properties.name+'</th></tr></thead> </br> <tr><td>Density:</td> <td>' +feature.properties.status+ '</td></tr></br> <tr><td>Hourly Counts:</td><td>' +hourlyCounts+ '</br>At '+hours+':00 o clock</td></tr></br> <tr><td>Weather:</td> <td>' +temperatureC+ ' C </br>'+weatherDescription+'</td></tr></table><br>';
@@ -202,19 +202,19 @@ $.ajax({
 	if (densityStatus == "Light"){
 						
 						mark = L.marker(latlng,	{icon: LightIcon});
-					console.log("lightIcon");
+					//console.log("lightIcon");
 					} else if (densityStatus== "Moderate"){
 						
 						mark = L.marker(latlng,{icon: MediumIcon});
-					console.log("MediumIcon");
+					//console.log("MediumIcon");
 					} else if (densityStatus== "Heavy"){
 						
 						mark = L.marker(latlng,{icon: HeavyIcon});
-					console.log("HeavyIcon");
+					//console.log("HeavyIcon");
 					} else {
 						mark = L.marker(latlng,{icon: UndefinedIcon});
 					}
-					//console.log(mark);
+					////console.log(mark);
 					return mark;
 			}
 		        
